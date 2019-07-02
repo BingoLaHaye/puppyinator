@@ -16,29 +16,13 @@ puppyframe <- puppyframe[-1, ]
 library(data.table)
 puppyframe2 <- puppyframe[grepl(".jpg$", puppyframe$urls) | grepl(".png$", puppyframe$urls), ]
 idealpup <- puppyframe2[sample(nrow(puppyframe2), 3), ]
-img_path1 <- as.character(idealpup[1, 2])
-img_path2 <- as.character(idealpup[2, 2])
-img_path3 <- as.character(idealpup[3, 2])
-img1 <- magick::image_read(img_path1)
-img2 <- magick::image_read(img_path2)
-img3 <- magick::image_read(img_path3)
 par(c(0, 0, 0, 0))
 ```
 
 ```{r echo=FALSE, fig.height=8, fig.width=8, message=FALSE, warning=FALSE}
-# lapply(idealpup$urls, magick::image_read)
-knitr::combine_words(idealpup[1, 1])
-plot(img1)
-knitr::combine_words(idealpup[2, 1])
-plot(img2)
-knitr::combine_words(idealpup[3, 1])
-plot(img3)
-```
-
-
-
-```{r}
 # want to use some loops instead in order to iterate the ideal pupper
-
+for (i in 1:nrow(idealpup)) {
+  print(as.character(idealpup[i, 1]))
+  plot(magick::image_read(as.character(idealpup[i, 2])))
+}
 ```
-
